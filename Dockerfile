@@ -1,4 +1,4 @@
-FROM arm32v7/node:latest
+FROM arm64v8/node:latest
 
 # Adding source files into container
 ADD src/ /src
