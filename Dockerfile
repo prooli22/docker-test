@@ -1,4 +1,4 @@
-FROM arm32v7/node:alpine
+FROM arm32v7/node
 
 # Adding source files into container
 ADD src/ /src
