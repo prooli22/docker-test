@@ -1,4 +1,4 @@
-FROM arm64v8/node:latest
+FROM arm32v6/node:8.14.0-alpine
 
 # Adding source files into container
 ADD src/ /src
