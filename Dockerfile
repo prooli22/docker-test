@@ -5,6 +5,7 @@ ENV PATH /src/node_modules/.bin:$PATH
 ADD src/ /src
 WORKDIR /src
 RUN npm install
+RUN npm list
 
 # Add the files to arm image
 FROM arm32v6/node:8.14.0-alpine
