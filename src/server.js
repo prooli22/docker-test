@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const wifi = require('node-wifi');
+const wifi = require('node-wifi-scanner');
 const app = express();
 
 // APP SETUP
@@ -14,22 +14,26 @@ app.use(cors());
 app.options('*', cors());
 
 // WIFI SETUP
-wifi.init({ iface: null });
+// wifi.init({ iface: null });
 
 app.get('/', (req, res) => {
     return res.send('NEURHOME Hub is here.');
 });
 
 app.get('/wifi', (req, res) => {
-    wifi.scan((err, network) => {
-        if (err) console.log(err);
+    wifi.scan((err, networks) => {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        } 
         else {
-            network = network.map(e => e.ssid)
-                             .map((e, i, final) => final.indexOf(e) === i && i)
-                             .filter(e => network[e])
-                             .map(e => network[e]);
-            network.sort((a, b) => b.signal_level - a.signal_level);
-            return res.send(network);
+            console.log(networks);
+            // network = network.map(e => e.ssid)
+            //                  .map((e, i, final) => final.indexOf(e) === i && i)
+            //                  .filter(e => network[e])
+            //                  .map(e => network[e]);
+            networks.sort((a, b) => b.rssi - a.rssi);
+            return res.send(networks);
         }
     })
 });
