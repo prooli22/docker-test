@@ -7,7 +7,7 @@ WORKDIR /src
 RUN npm install
 
 # Add the files to arm image
-FROM arm32v6/node:8.14.0-alpine
+FROM arm32v6/node:8.14.0
 ADD src/ /src
 WORKDIR /src
 ENV PATH /src/node_modules/.bin:$PATH
@@ -17,8 +17,6 @@ COPY --from=builder /src/node_modules /src/node_modules
 # Open Port 5000
 ENV PORT=5000
 EXPOSE 5000
-
-RUN iwlist scan
 
 # Run Node.js
 CMD ["npm", "start"]
